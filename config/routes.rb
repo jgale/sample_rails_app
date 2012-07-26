@@ -1,7 +1,6 @@
 SampleApp::Application.routes.draw do
 
-  get "users/new"
-  # Note that we have kept the rule get "users/new", which was generated automatically by the Users controller generation in Listing 5.28. Currently, this rule is necessary for the ’users/new’ routing to work, but it doesn’t follow the proper REST conventions (Table 2.2), and we will eliminate it in Section 7.1.2.
+  resources :users
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
