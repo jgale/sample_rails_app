@@ -11,10 +11,14 @@
 #
 
 class User < ActiveRecord::Base
+  # Unlike the other attributes we’ve seen so far, the password and password_confirmation attributes
+  # will be virtual—they will only exist temporarily in memory, and will not be persisted to the database.
+  # i.e. annotation above is correct
   attr_accessible :email, :name, :password, :password_confirmation
 
   # Very magical. 
-  # Next, we need an authenticate method to compare an encrypted password to the password_digest
+  # Next, we need to add password and password_confirmation attributes, require the presence of the password,
+  # require that they match, and an authenticate method to compare an encrypted password to the password_digest
   # to authenticate users. This is the only nontrivial step, and in the latest version of Rails all
   # these features come for free with one method, has_secure_password.
   # As long as there is a password_digest column in the database,
@@ -35,6 +39,4 @@ class User < ActiveRecord::Base
 
   validates :password, presence: true, length: { minimum: 6 }
   validates :password_confirmation, presence: true
-
-
 end
