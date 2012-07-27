@@ -10,10 +10,11 @@ class UsersController < ApplicationController
   def create # POST create a new user
     @user = User.new(params[:user])
     if @user.save
+      sign_in @user
       # Handle a successful save.
       flash[:success] = "Welcome to the Sample App!"
       # Note that we can omit the user_path in the redirect, writing simply redirect_to @user to redirect to the user show page.
-      # Why??
+      # Why?? I think Ruby is just clever like that.
       redirect_to @user
     else
       render 'new'
