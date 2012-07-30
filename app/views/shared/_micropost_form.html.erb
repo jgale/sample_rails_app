@@ -1,4 +1,6 @@
 <%= form_for(@micropost) do |f| %>
+  <!-- Pass a hash with the value equal to the object, and the key equal to the desired name of the
+  variable in the partial, e.g. 'object' -->
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
     <%= f.text_area :content, placeholder: "Compose new micropost..." %>
