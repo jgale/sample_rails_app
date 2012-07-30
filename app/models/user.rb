@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
   # (If has_secure_password seems a bit too magical for your taste, I suggest taking a look at the
   # source code for secure_password.rb. https://github.com/rails/rails/blob/master/activemodel/lib/active_model/secure_password.rb
   has_secure_password
+  has_many :microposts
 
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
