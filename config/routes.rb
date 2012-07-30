@@ -6,6 +6,10 @@ SampleApp::Application.routes.draw do
   # but the route for creating a session is simply the default (i.e., [resource name]_path).
   resources :sessions, only: [:new, :create, :destroy]
 
+  resources :microposts, only: [:create, :destroy]
+  #POST    /microposts     create        create a new micropost
+  #DELETE  /microposts/1   destroy       delete micropost with id 1
+
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   root :to => 'static_pages#home'  
