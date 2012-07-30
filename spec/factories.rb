@@ -4,5 +4,10 @@ FactoryGirl.define do
     sequence(:email) { |n| "person_#{n}@example.com"}   
     password "foobar"
     password_confirmation "foobar"
+
+
+    factory :admin do # Can now create an admin with: FactoryGirl.create(:admin)
+      admin true
+    end
   end
 end
