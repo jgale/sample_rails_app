@@ -34,6 +34,11 @@ class User < ActiveRecord::Base
   # Here it's named different
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
 
+  # Would normally do: has_many :followeds, through: :relationships # but followeds is awkward in language
+  # Can override the default with this. Source of the followed_users array is the set of :followed ids in Relationships
+  has_many :followed_users, through: :relationships, source: :followed
+
+
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
   
@@ -52,6 +57,20 @@ class User < ActiveRecord::Base
     # Prelim
     Micropost.where("user_id = ?", id)
   end
+
+  def following?(other_user)
+    # Self is implicit
+    relationships.find_by_followed_id(other_user.id)
+  end
+
+  def follow!(other_user)
+    relationships.create!(followed_id: other_user.id)
+  end
+
+  def unfollow!(other_user)
+    relationships.find_by_followed_id(other_user.id).destroy
+  end
+
 
   private
 
