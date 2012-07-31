@@ -1,6 +1,16 @@
 SampleApp::Application.routes.draw do
 
-  resources :users
+  resources :users do
+    # You might suspect that the URIs will look like /users/1/following and /users/1/followers, and that is exactly what
+    # this code does. Since both pages will be showing data, we use get to arrange for the URIs to respond to GET requests
+    # (as required by the REST convention for such pages), and the member method means that the routes respond to URIs containing
+    # the user id. The other possibility, collection, works without the id, so that 'collection { get :tigers }'
+    # which would make it like /users/tigers
+    member do
+      get :following, :followers
+      # Creates paths like: following_user_path(user), followers_user_path(user)
+    end
+  end
 
   # Note that the routes for signin and signout are custom,
   # but the route for creating a session is simply the default (i.e., [resource name]_path).
@@ -9,6 +19,8 @@ SampleApp::Application.routes.draw do
   resources :microposts, only: [:create, :destroy]
   #POST    /microposts     create        create a new micropost
   #DELETE  /microposts/1   destroy       delete micropost with id 1
+
+  resources :relationships, only: [:create, :destroy]
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
