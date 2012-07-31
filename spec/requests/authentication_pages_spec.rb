@@ -92,6 +92,21 @@ describe "Authentication" do
           specify { response.should redirect_to(signin_path) }
         end
       end
+
+      # Regardless of whether Sign In buttons show up on the form or not, (follow/unfollow buttons tests in user_spec_pages)
+      # these methods shouldn't be available to users who aren't signed in.
+      # these check the actual 
+      describe "in the Relationships controller" do
+        describe "submitting to the create action" do
+          before { post relationships_path }
+          specify { response.should redirect_to(signin_path) }
+        end
+
+        describe "submitting to the destroy action" do
+          before { delete relationship_path(1) }
+          specify { response.should redirect_to(signin_path) }          
+        end
+      end
     end
 
     describe "as non-admin user" do

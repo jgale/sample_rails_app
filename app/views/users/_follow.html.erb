@@ -1,5 +1,8 @@
-<!-- This sends a POST request, gets routed to the 'create' action. It doesn't have any content
+<!-- This sends a POST request, gets routed to the 'create' action in RelationshipsController. It doesn't have any content
 but we still need to send the followed_id, so we do that with the f.hidden_field -->
+
+<!-- How does this know to go to relationships controller? I think it's because it's form_for (a_relationship) so
+	 it automatically routes it -->
 <%= form_for(current_user.relationships.build(followed_id: @user.id)) do |f| %>
   <div><%= f.hidden_field :followed_id %></div>
   <%= f.submit "Follow", class: "btn btn-large btn-primary" %>
