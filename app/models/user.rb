@@ -30,6 +30,10 @@ class User < ActiveRecord::Base
   has_secure_password
   has_many :microposts, dependent: :destroy # When you delete a user, it will also delete the dependent microposts
 
+  # Can't just do has_many $relationships because there is magic above, where microposts has a user_id field. <class>_id
+  # Here it's named different
+  has_many :relationships, foreign_key: "follower_id", dependent: :destroy
+
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
   

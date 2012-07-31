@@ -10,5 +10,12 @@
 #
 
 class Relationship < ActiveRecord::Base
-  attr_accessible :followed_id, :follower_id
+  # unlike the default generate Relationship model, in this case only the followed_id is accessible.
+  # Not sure what the logic on this is.
+  attr_accessible :followed_id
+
+  # Rails would infer a name like :follower_id and :followed_id, but since there is neither a Followed or a Follower model
+  # we need to supply the class name User
+  belongs_to :follower, class_name: "User"
+  belongs_to :followed, class_name: "User"
 end
